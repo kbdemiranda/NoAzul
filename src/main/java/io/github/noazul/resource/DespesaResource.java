@@ -37,13 +37,21 @@ public class DespesaResource {
         return ResponseEntity.ok(despesa);
     }
 
-    private Despesa getDespesa(Long id) {
-        return despesaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
     @PostMapping
     public ResponseEntity<Despesa> createDespesa(@RequestBody @Valid DespesaDTO dto){
         Despesa despesa = despesaRepository.saveAndFlush(modelMapper.map(dto, Despesa.class));
         return ResponseEntity.created(URI.create("/despesas")).body(despesa);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Despesa> updateDespesa(@PathVariable Long id, @RequestBody @Valid DespesaDTO dto){
+        Despesa despesa = getDespesa(id);
+        modelMapper.map(dto, despesa);
+        return ResponseEntity.accepted().body(despesa);
+    }
+
+
+    private Despesa getDespesa(Long id) {
+        return despesaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
