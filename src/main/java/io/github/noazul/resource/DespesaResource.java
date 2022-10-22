@@ -6,8 +6,10 @@ import io.github.noazul.repository.DespesaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -27,6 +29,16 @@ public class DespesaResource {
     public ResponseEntity<Page<Despesa>> getAllDespesas(Pageable pageable){
         Page<Despesa> despesas = despesaRepository.findAll(pageable);
         return ResponseEntity.ok().body(despesas);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Despesa> getDetailsDespesa(@PathVariable Long id){
+        Despesa despesa = getDespesa(id);
+        return ResponseEntity.ok(despesa);
+    }
+
+    private Despesa getDespesa(Long id) {
+        return despesaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
