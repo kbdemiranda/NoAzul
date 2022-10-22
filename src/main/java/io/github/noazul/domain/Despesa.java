@@ -21,5 +21,7 @@ public class Despesa {
     private String descricao;
     private BigDecimal valor;
     private LocalDate data;
+    @Enumerated(EnumType.STRING)
+    private Categoria categoria;
 
 }

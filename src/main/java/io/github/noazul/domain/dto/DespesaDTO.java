@@ -1,7 +1,10 @@
 package io.github.noazul.domain.dto;
 
+import io.github.noazul.domain.Categoria;
 import lombok.Data;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -17,5 +20,6 @@ public class DespesaDTO {
     private BigDecimal valor;
     @NotNull
     private LocalDate data;
+    private Categoria categoria;
 
 }
