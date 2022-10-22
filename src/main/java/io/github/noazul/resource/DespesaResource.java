@@ -50,6 +50,11 @@ public class DespesaResource {
         return ResponseEntity.accepted().body(despesa);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDespesa(@PathVariable Long id){
+        despesaRepository.delete(getDespesa(id));
+        return ResponseEntity.ok("Despesa deletada");
+    }
 
     private Despesa getDespesa(Long id) {
         return despesaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
