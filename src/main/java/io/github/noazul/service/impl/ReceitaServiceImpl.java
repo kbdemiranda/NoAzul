@@ -36,6 +36,11 @@ public class ReceitaServiceImpl implements ReceitaService {
     }
 
     @Override
+    public Page<Receita> obterReceitasPorMes(Pageable pageable, Integer ano, Integer mes) {
+        return receitaRepository.obterReceitasPorMes(pageable, ano, mes);
+    }
+
+    @Override
     public Receita cadastrarReceita(ReceitaDTO dto) {
         Receita receita = modelMapper.map(dto, Receita.class);
         return receitaRepository.saveAndFlush(receita);

@@ -11,6 +11,8 @@ public interface ReceitaService {
 
     Receita obterReceitaDetalhada(Long id);
 
+    Page<Receita> obterReceitasPorMes(Pageable pageable, Integer ano, Integer mes);
+
     Receita cadastrarReceita(ReceitaDTO dto);
 
     Receita atualizarReceita(Long id, ReceitaDTO dto);

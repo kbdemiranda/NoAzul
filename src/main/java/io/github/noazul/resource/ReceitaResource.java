@@ -2,15 +2,11 @@ package io.github.noazul.resource;
 
 import io.github.noazul.domain.Receita;
 import io.github.noazul.domain.dto.ReceitaDTO;
-import io.github.noazul.repository.ReceitaRepository;
 import io.github.noazul.service.ReceitaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -36,6 +32,12 @@ public class ReceitaResource {
     public ResponseEntity<Receita> getDetailsReceita(@PathVariable Long id){
         Receita receita = receitaService.obterReceitaDetalhada(id);
         return ResponseEntity.ok(receita);
+    }
+
+    @GetMapping("/ano/{ano}/mes/{mes}")
+    public ResponseEntity<Page<Receita>> obterReceitasPorMes(Pageable pageable, @PathVariable Integer ano, @PathVariable Integer mes){
+        Page<Receita> receitas = receitaService.obterReceitasPorMes(pageable, ano, mes);
+        return ResponseEntity.ok().body(receitas);
     }
 
     @PostMapping
