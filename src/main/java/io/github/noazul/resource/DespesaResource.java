@@ -33,6 +33,12 @@ public class DespesaResource {
         return ResponseEntity.ok(despesa);
     }
 
+    @GetMapping("/ano/{ano}/mes/{mes}")
+    public ResponseEntity<Page<Despesa>> obterDespesasPorMes(Pageable pageable, @PathVariable Integer ano, @PathVariable Integer mes){
+        Page<Despesa> despesas = despesaService.obterDespesasPorMes(pageable, ano, mes);
+        return ResponseEntity.ok().body(despesas);
+    }
+
     @PostMapping
     public ResponseEntity<Despesa> createDespesa(@RequestBody @Valid DespesaDTO dto){
         Despesa despesa = despesaService.cadastrarDespesa(dto);

@@ -36,6 +36,11 @@ public class DespesaServiceImpl implements DespesaService{
     }
 
     @Override
+    public Page<Despesa> obterDespesasPorMes(Pageable pageable, Integer ano, Integer mes) {
+        return despesaRepository.obterDespesasPorMes(pageable, ano, mes);
+    }
+
+    @Override
     public Despesa cadastrarDespesa(DespesaDTO dto) {
         Despesa despesa = modelMapper.map(dto, Despesa.class);
         return despesaRepository.saveAndFlush(despesa);

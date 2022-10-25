@@ -11,6 +11,8 @@ public interface DespesaService {
 
     Despesa obterDespesaDetalhada(Long id);
 
+    Page<Despesa> obterDespesasPorMes(Pageable pageable, Integer ano, Integer mes);
+
     Despesa cadastrarDespesa(DespesaDTO dto);
 
     Despesa atualizarDespesa(Long id, DespesaDTO dto);
