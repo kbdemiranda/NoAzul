@@ -11,7 +11,7 @@ public enum Categoria {
     IMPREVISTOS ("Imprevistos"),
     OUTRAS ("Outras");
 
-    private String descricao;
+    private final String descricao;
 
     Categoria(String descricao) {
         this.descricao = descricao;

@@ -24,4 +24,8 @@ public class Despesa {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
+    public Despesa(Categoria categoria, BigDecimal valor) {
+        this.categoria = categoria;
+        this.valor = valor;
+    }
 }
