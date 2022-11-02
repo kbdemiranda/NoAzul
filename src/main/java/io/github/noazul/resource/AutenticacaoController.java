@@ -28,12 +28,11 @@ public class AutenticacaoController {
 
     //TODO: Finalizar a logica de autenticação com token jwt
     @PostMapping
-    public ResponseEntity<?> autenticar(@RequestBody @Valid Login login){
+    public ResponseEntity<String> autenticar(@RequestBody @Valid Login login){
         try{
             Authentication authentication = authenticationManager.authenticate(login.getUser());
             String token = tokenService.gerarToken(authentication);
-            System.out.println(token);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Bearer " + token);
         }catch (AuthenticationException exception){
             return ResponseEntity.badRequest().build();
         }
