@@ -2,6 +2,7 @@ package io.github.noazul.service.impl;
 
 import io.github.noazul.domain.Usuario;
 import io.github.noazul.service.TokenService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,5 +31,26 @@ public class TokenServiceImpl implements TokenService {
                 .setExpiration(dataExpiracao)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
+    }
+
+    public boolean isValido(String token) {
+        try {
+            Jwts
+                    .parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Long extrairIdUsuario(String token) {
+        Claims claims = Jwts
+                .parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+        return Long.parseLong(claims.getSubject());
     }
 }
